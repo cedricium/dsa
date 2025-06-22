@@ -1,5 +1,5 @@
-import * as path from "path";
-import { runTests } from "./core/test-runner";
+import { runTests } from "../core/test-runner";
+import { getProblemPaths } from "../core/path-utils";
 
 async function main() {
   const problemId = process.argv[2];
@@ -28,8 +28,7 @@ async function loadProblem(problemId: string) {
   )}`;
 
   try {
-    const problemPath = path.resolve(__dirname, `${problemDir}/index.ts`);
-    const testPath = path.resolve(__dirname, `${problemDir}/index.test.ts`);
+    const { problemPath, testPath } = getProblemPaths(problemDir);
 
     const { problem } = await import(problemPath);
     const { testCases } = await import(testPath);
@@ -52,10 +51,10 @@ function getChapterFromId(problemId: string): string {
 }
 
 function getProblemName(problemId: string): string {
-  // This is a simple mapping - you'd expand this as you add problems
   const nameMap: Record<string, string> = {
     "1.1": "is-unique",
     "1.2": "check-permutation",
+    "1.3": "urlify",
   };
 
   return nameMap[problemId] || "unknown";

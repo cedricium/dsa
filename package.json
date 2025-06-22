@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "TypeScript testing app for DS&A problems from 'Cracking the Coding Interview'",
   "scripts": {
-    "test": "ts-node src/cli.ts",
+    "test": "ts-node src/cli/test.ts",
+    "test:gen": "ts-node src/cli/generate.ts",
     "build": "tsc"
   },
   "license": "MIT",
