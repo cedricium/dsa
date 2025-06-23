@@ -42,7 +42,7 @@ npm run test <id> # 1.2
 
 Example output:
 
-```bash
+```
 Running tests for Problem 1.2
 ========================================
   ✓ reversed strings (0.03ms)
