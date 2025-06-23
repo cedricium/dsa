@@ -55,6 +55,7 @@ function getProblemName(problemId: string): string {
     "1.1": "is-unique",
     "1.2": "check-permutation",
     "1.3": "urlify",
+    "1.4": "palindrome-permutation",
   };
 
   return nameMap[problemId] || "unknown";
