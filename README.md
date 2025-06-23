@@ -1,7 +1,7 @@
 # DSA
 
-A TypeScript-based test runner and solution repository for "Cracking the Coding
-Interview" problems. This application provides a CLI-driven environment for
+A TypeScript-based test runner and solution repository for _Cracking the Coding
+Interview_ problems. This application provides a CLI-driven environment for
 practicing data structures and algorithms with automated testing and problem
 generation capabilities.
 
@@ -29,7 +29,10 @@ npm install
 Scaffold new problem templates with boilerplate code:
 
 ```bash
-npm run test:gen <id-name> # 1.3-urlify
+npm run test:gen <id-name>
+
+# e.g.
+# npm run test:gen 1.2-check-permutation
 ```
 
 ### Running Tests
@@ -37,7 +40,10 @@ npm run test:gen <id-name> # 1.3-urlify
 Execute test suites for specific problems:
 
 ```bash
-npm run test <id> # 1.2
+npm run test <id>
+
+# e.g.
+# npm run test 1.2
 ```
 
 Example output:
