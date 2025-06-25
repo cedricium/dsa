@@ -1,7 +1,7 @@
 export function generateProblemTemplate(problemId: string): string {
   return `export const problem = {
   id: "${problemId}",
-  solution: null,
+  solution: fn,
 };
 
 /**
