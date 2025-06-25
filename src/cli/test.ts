@@ -1,5 +1,5 @@
 import { runTests } from "../core/test-runner";
-import { getProblemPaths } from "../core/path-utils";
+import { findProblemDirectory, getProblemPaths } from "../core/path-utils";
 
 async function main() {
   const problemId = process.argv[2];
@@ -22,12 +22,8 @@ async function main() {
 }
 
 async function loadProblem(problemId: string) {
-  const chapter = getChapterFromId(problemId);
-  const problemDir = `./problems/${chapter}/${problemId}-${getProblemName(
-    problemId
-  )}`;
-
   try {
+    const problemDir = await findProblemDirectory(problemId);
     const { problemPath, testPath } = getProblemPaths(problemDir);
 
     const { problem } = await import(problemPath);
@@ -43,22 +39,6 @@ async function loadProblem(problemId: string) {
       `Could not load problem ${problemId}. Make sure the problem directory and files exist.`
     );
   }
-}
-
-function getChapterFromId(problemId: string): string {
-  const chapterNum = problemId.split(".")[0];
-  return `chapter-${chapterNum.padStart(2, "0")}`;
-}
-
-function getProblemName(problemId: string): string {
-  const nameMap: Record<string, string> = {
-    "1.1": "is-unique",
-    "1.2": "check-permutation",
-    "1.3": "urlify",
-    "1.4": "palindrome-permutation",
-  };
-
-  return nameMap[problemId] || "unknown";
 }
 
 main().catch(console.error);

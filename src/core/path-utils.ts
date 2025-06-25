@@ -1,4 +1,28 @@
+import * as fs from "fs";
 import * as path from "path";
+
+export async function findProblemDirectory(problemId: string): Promise<string> {
+  const chapter = getChapterFromId(problemId);
+  const chapterDir = getProjectPath(`problems/${chapter}`);
+
+  try {
+    const entries = await fs.promises.readdir(chapterDir);
+    const problemDirName = entries.find((entry) =>
+      entry.startsWith(`${problemId}-`)
+    );
+
+    if (problemDirName) {
+      return path.join(chapterDir, problemDirName);
+    }
+    throw new Error(`Directory for problem ${problemId} not found.`);
+  } catch (error) {
+    throw new Error(
+      `Could not find problem directory for ${problemId}: ${
+        error instanceof Error ? error.message : String(error)
+      }`
+    );
+  }
+}
 
 export function getChapterFromId(problemId: string): string {
   const chapterNum = problemId.split(".")[0];
@@ -17,7 +41,7 @@ export function parseProblemInput(input: string): {
   }
 
   const problemId = parts[0];
-  const problemName = parts.slice(1).join("-"); // Handle names with multiple dashes
+  const problemName = parts.slice(1).join("-");
 
   return { problemId, problemName };
 }
@@ -39,7 +63,7 @@ export function getProblemPaths(problemDir: string): {
   testPath: string;
 } {
   return {
-    problemPath: getProjectPath(`${problemDir}/index.ts`),
-    testPath: getProjectPath(`${problemDir}/index.test.ts`),
+    problemPath: `${problemDir}/index.ts`,
+    testPath: `${problemDir}/index.test.ts`,
   };
 }
